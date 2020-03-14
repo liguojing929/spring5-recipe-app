@@ -31,6 +31,12 @@ public class Recipe {
     @Enumerated(value = EnumType.STRING) // this is gonna store string value of enum in db
     private Difficulty difficulty;
 
+    @ManyToMany
+    @JoinTable(name = "recipe_category_join",
+            joinColumns =  @JoinColumn(name = "category"),
+            inverseJoinColumns = @JoinColumn(name = "recipe"))
+    private Set<Category> categories;
+
 
     public Long getId() {
         return id;
@@ -126,5 +132,13 @@ public class Recipe {
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
