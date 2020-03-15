@@ -6,7 +6,18 @@
 </head>
 <body>
     <h1>This is the Index Page</h1>
-    <p>Under Construction....(Auto build functionality is not found)</p>
+<!--    <p>Under Construction....(Auto build functionality is not found)</p>-->
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each="recipe : ${recipes}">
+            <td th:text="${recipe.getId()}"></td>
+            <td th:text="${recipe.getDescription()}"></td>
+        </tr>
+    </table>
 
 
 </body>
