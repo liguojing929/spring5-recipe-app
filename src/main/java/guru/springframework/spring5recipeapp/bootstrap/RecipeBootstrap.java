@@ -4,15 +4,18 @@ import guru.springframework.spring5recipeapp.model.*;
 import guru.springframework.spring5recipeapp.repositories.CategoryRepository;
 import guru.springframework.spring5recipeapp.repositories.RecipeRepository;
 import guru.springframework.spring5recipeapp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -26,9 +29,21 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         this.categoryRepository = categoryRepository;
     }
 
+    /**
+     * EACH TIME we go in and out of Spring Data JPA Repositories we also go in and out of Hibernate Transaction
+     * The Lazy collections need to get initialized within the transactions and within the same hibernate session
+     * Sometimes it will cause issue about the Lazy Initialization, it is because we are getting outside of that.
+     * So we need to add @Transactional -- it will direct Spring framework to create a transaction around this method.
+     * (because many-to-many relationship is initialized lazily, when it calls into a getter/setter, it might throw an exception,
+     * and hence we need @Transactional)
+     */
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        log.debug("Loading Bootstrap Data");
         recipeRepository.saveAll(getRecipe());
+        System.out.println("Bootstrap Runs.");
+
     }
 
     private List<Recipe> getRecipe() {

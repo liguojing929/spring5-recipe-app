@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
-@Slf4j
+@Slf4j // Causes lombok to generate a logger field.
 @Service
 public class RecipeServiceImpl implements RecipeService {
 

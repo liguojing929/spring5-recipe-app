@@ -50,10 +50,6 @@ public class Recipe {
         this.notes.setRecipe(this);
     }
 
-    public Set<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
     public Recipe addIngredient(Ingredient ingredient) {
         this.ingredients.add(ingredient);
         ingredient.setRecipe(this);
