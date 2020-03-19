@@ -47,6 +47,7 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+        System.out.println("The notes is: " + notes);
         this.notes.setRecipe(this);
     }
 
