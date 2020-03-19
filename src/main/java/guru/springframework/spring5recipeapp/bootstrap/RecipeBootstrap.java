@@ -82,6 +82,9 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacamole.setDescription("Perfect Guacamole");
         guacamole.setPrepTime(10);
         guacamole.setCookTime(0);
+        guacamole.setServings(5);
+        guacamole.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvpiV9Sd\"");
+        guacamole.setSource("Fresh avocado");
         guacamole.setDifficulty(Difficulty.EASY);
         guacamole.setDescription("Perfect Guacamole");
         guacamole.setDirection("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
@@ -116,7 +119,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacamole.addIngredient(new Ingredient("freshly grated black pepper", new BigDecimal(2), dashOption.get()));
         guacamole.addIngredient(new Ingredient("ripe tomato, seeds and pulp removed, chopped", new BigDecimal(".5"), eachUnitOption.get()));
 
-        guacNotes.setRecipe(guacamole);
+        guacamole.setNotes(guacNotes);
         recipes.add(guacamole);
 
         // Tacos:
@@ -124,6 +127,9 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.setDescription("Spicy Grilled Chicken Taco");
         tacosRecipe.setCookTime(9);
         tacosRecipe.setPrepTime(20);
+        tacosRecipe.setSource("Taco, Chicken, Spice");
+        tacosRecipe.setServings(5);
+        tacosRecipe.setUrl("http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvtrAnNm");
         tacosRecipe.setDifficulty(Difficulty.MODERATE);
 
         tacosRecipe.setDirection("1 Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
