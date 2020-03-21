@@ -1,12 +1,14 @@
 package guru.springframework.spring5recipeapp.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Ingredient {
@@ -16,6 +18,13 @@ public class Ingredient {
     private Long id;
     private String description;
     private BigDecimal amount;
+
+    @ManyToOne
+    private Recipe recipe;
+
+    @OneToOne(fetch = FetchType.EAGER) // meaning want to use every time.
+    private UnitOfMeasure unitOfMeasure;
+
 
     public Ingredient() {
 
@@ -27,11 +36,10 @@ public class Ingredient {
         this.unitOfMeasure = unitOfMeasure;
     }
 
-    @ManyToOne
-    private Recipe recipe;
-
-    @OneToOne(fetch = FetchType.EAGER) // meaning want to use every time.
-    private UnitOfMeasure unitOfMeasure;
-
-
+    public Ingredient(String description, BigDecimal amount, Recipe recipe, UnitOfMeasure unitOfMeasure) {
+        this.description = description;
+        this.amount = amount;
+        this.recipe = recipe;
+        this.unitOfMeasure = unitOfMeasure;
+    }
 }
