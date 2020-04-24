@@ -47,7 +47,7 @@ class ImageControllerTest {
         when(recipeService.findCommandById(anyLong())).thenReturn(command);
 
         // when
-        mockMvc.perform(get("recipe/1/image"))
+        mockMvc.perform(get("/recipe/1/image"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipe"));
 
@@ -58,12 +58,12 @@ class ImageControllerTest {
     @Test
     public void handleImagePost() throws Exception {
         MockMultipartFile multipartFile =
-                new MockMultipartFile("file", "testing.txt",
+                new MockMultipartFile("imagefile", "testing.txt",
                         "text/plain", "Spring Framework Guru".getBytes());
 
-        this.mockMvc.perform(multipart("recipe/1/image").file(multipartFile))
-                .andExpect(status().isFound())
-                .andExpect(header().string("Location", "/"));
+        this.mockMvc.perform(multipart("/recipe/1/image").file(multipartFile))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(header().string("Location", "/recipe/1/show"));
         verify(imageService, times(1)).saveImageFile(anyLong(), any());
     }
 }
