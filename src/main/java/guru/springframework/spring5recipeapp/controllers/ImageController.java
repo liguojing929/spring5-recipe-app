@@ -22,7 +22,7 @@ public class ImageController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping(value = "recipe/{id}/image")
+    @GetMapping(value = "/recipe/{id}/image")
     public String showUploadForm(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
         return "recipe/imageuploadform";
